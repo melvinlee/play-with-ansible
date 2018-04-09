@@ -1,0 +1,39 @@
+version: "3"
+
+services:
+  ansible:
+    build: .
+    command: /bin/bash
+    tty: true
+    stdin_open: true
+
+  web1:
+    image: centos:7
+    command: /bin/bash
+    tty: true
+    stdin_open: true
+    ports:
+      - "81:80"
+    networks:
+      - back-tier
+
+  web2:
+    image: centos:7
+    tty: true
+    stdin_open: true
+    ports:
+      - "82:80"
+    networks:
+      - back-tier
+
+  db:
+    image: centos:7
+    tty: true
+    stdin_open: true
+    ports:
+      - "1433:1433"
+    networks:
+      - back-tier
+
+networks:
+  back-tier:
