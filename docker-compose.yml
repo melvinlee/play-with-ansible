@@ -1,15 +1,16 @@
 version: "3"
 
 services:
-  ansible:
-    build: .
+  ansible-control:
+    build: ./centos-ansible/.
     command: /bin/bash
     tty: true
     stdin_open: true
-
+    networks:
+      - back-tier
+  
   web1:
-    image: centos:7
-    command: /bin/bash
+    build: ./centos/.
     tty: true
     stdin_open: true
     ports:
@@ -18,7 +19,7 @@ services:
       - back-tier
 
   web2:
-    image: centos:7
+    build: ./centos/.
     tty: true
     stdin_open: true
     ports:
@@ -26,8 +27,8 @@ services:
     networks:
       - back-tier
 
-  db:
-    image: centos:7
+  mysqldb1:
+    build: ./centos/.
     tty: true
     stdin_open: true
     ports:
